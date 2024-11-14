@@ -35,12 +35,14 @@ unit-test:
       allow_failure: true
   script:
     - npm test
+
 e2e-test:
   stage: test
+  script: echo "Hello E2E !"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-  script:
-    - echo "Hello E2E !"
+    when: always
+
 release:
   stage: release
   when: manual
