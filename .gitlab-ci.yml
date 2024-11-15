@@ -58,9 +58,10 @@ e2e-test:
 integration-test:
   stage: test
   script: echo "Hello integration"
-  dependencies:
-    - unit-test
-    - e2e-test
+  rules:
+    - needs: 
+      - jobs: e2e-test
+      - jobs: unit-test
 
 release:
   stage: release
