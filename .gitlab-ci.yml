@@ -12,6 +12,7 @@ cache:
 
 stages:
   - validate
+  - test_prepare
   - test
   - build
   - release
@@ -40,7 +41,7 @@ only-canari:
   script: echo "Hello Only '$ENV_TARGET'"
   
 unit-test:
-  stage: test
+  stage: test_prepare
   rules: 
     - if: $CI_PIPELINE_SOURCE == "push"
       when: never
@@ -49,7 +50,7 @@ unit-test:
     - npm test
 
 e2e-test:
-  stage: test
+  stage: test_prepare
   script: echo "Hello E2E !"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
