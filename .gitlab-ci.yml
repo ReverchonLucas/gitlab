@@ -55,6 +55,15 @@ e2e-test:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: always
 
+integration-test:
+  stage: test
+  script: echo "Hello integration"
+  needs:
+    - job: e2e-test
+    artifacts: false
+    - job: unit-test
+    artifacts: false
+
 release:
   stage: release
   when: manual
