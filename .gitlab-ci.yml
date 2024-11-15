@@ -1,6 +1,7 @@
 #.gitlab-ci.yml file
 
 image: node:latest
+
 cache:
   key:
     files:
@@ -8,17 +9,23 @@ cache:
   paths:
     - node_modules/
     - .npm/
+
 stages:
   - validate
   - test
   - build
   - release
   - deploy
+
+variables:
+  ENV_TARGET: "canary"  
+
 install:
   stage: .pre
   script:
     # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
+
 lint:
   stage: validate
   rules: 
@@ -27,6 +34,11 @@ lint:
       allow_failure: true
   script:
     - npm run lint
+
+only-canari:
+  stage: validate
+  script: echo "Hello Only '$ENV_TARGET'"
+  
 unit-test:
   stage: test
   rules: 
