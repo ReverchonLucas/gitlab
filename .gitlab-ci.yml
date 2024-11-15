@@ -54,13 +54,14 @@ e2e-test:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: always
+    - needs:
+      - jobs: integration-test
 
 integration-test:
   stage: test
   script: echo "Hello integration"
   rules:
     - needs: 
-      - jobs: e2e-test
       - jobs: unit-test
 
 release:
