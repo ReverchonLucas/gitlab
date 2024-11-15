@@ -60,9 +60,7 @@ integration-test:
   script: echo "Hello integration"
   needs:
     - job: e2e-test
-    artifacts: false
     - job: unit-test
-    artifacts: false
 
 release:
   stage: release
