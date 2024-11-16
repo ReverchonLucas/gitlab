@@ -43,7 +43,7 @@ only-canari:
     - echo "Hello Only '$ENV_TARGET'"
 
 unit-test:
-  <<: *testsimp
+  extends: *testsimp
   rules: 
     - if: $CI_PIPELINE_SOURCE == "push"
       when: never
@@ -52,7 +52,7 @@ unit-test:
     - npm test
 
 e2e-test:
-  <<: *testsimp
+  extends: *testsimp
   script: echo "Hello E2E !"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -61,7 +61,7 @@ e2e-test:
       - job: integration-test
 
 integration-test:
-  <<: *testsimp
+  extends: *testsimp
   script: echo "Hello integration"
   rules:
     - needs: 
