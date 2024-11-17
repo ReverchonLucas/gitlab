@@ -18,14 +18,6 @@ stages:
 variables:
   ENV_TARGET: "canary"
 
-.base-job: &base-job
-  script:
-    - echo "Base job script"
-
-.testsimp: &testsimp
-  <<: *base-job
-  stage: test
-
 install:
   stage: validate
   script:
@@ -46,7 +38,7 @@ only-canari:
     - echo "Hello Only '$ENV_TARGET'"
 
 unit-test:
-  extends: *testsimp
+  stage: test
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
       when: never
@@ -55,7 +47,7 @@ unit-test:
     - npm test
 
 e2e-test:
-  extends: *testsimp
+  stage: test
   script:
     - echo "Hello E2E !"
   rules:
@@ -65,7 +57,7 @@ e2e-test:
         - job: integration-test
 
 integration-test:
-  extends: *testsimp
+  stage: test
   script:
     - echo "Hello integration"
   rules:
