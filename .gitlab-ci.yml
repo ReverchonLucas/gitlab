@@ -39,10 +39,6 @@ only-canari:
 
 .common-test-config: &common-test-config
   stage: test
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
-      when: never
-      allow_failure: true
   script:
     - echo "Test script"
 
