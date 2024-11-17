@@ -15,6 +15,7 @@ stages:
   - release
   - deploy
 
+
 variables:
   ENV_TARGET: "canary"
 
