@@ -37,27 +37,32 @@ only-canari:
   script:
     - echo "Hello Only '$ENV_TARGET'"
 
-unit-test:
+.common-test-config: &common-test-config
   stage: test
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
       when: never
       allow_failure: true
   script:
+    - echo "Test script"
+
+unit-test:
+  <<: *common-test-config
+  script:
     - npm test
 
 e2e-test:
-  stage: test
-  script:
-    - echo "Hello E2E !"
+  <<: *common-test-config
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: always
     - needs:
         - job: integration-test
+  script:
+    - echo "Hello E2E !"
 
 integration-test:
-  stage: test
+  <<: *common-test-config
   script:
     - echo "Hello integration"
   rules:
